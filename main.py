@@ -20,17 +20,27 @@ def feedback(random_number, user_number):
     print(f"Numbers in: {numbers_in}, numbers in places: {numbers_in_places}, random_number: {random_number}")
     return False
 
-length = int(input("Գրեք թե քանի նիշանոց թիվ պետքա լինի։ "))
-random_number = get_random_number(length)
-attempts = 0
-max_attemps = 10
+while True:
+    length = int(input("Գրեք թե քանի նիշանոց թիվ պետքա լինի։ "))
+    if length >= 4:
+        break
+    print("Թիվը առնվազն պետքա 4 նիշ լինի")
 
-while attempts < max_attemps:
-    user_input1 = input(f"Գրեք {length} նիշանոց թիվ մնացելա {attempts}։ ")
+random_number = get_random_number(length)
+min_attempts = 0
+max_attempts = 10
+
+while min_attempts < max_attempts:
+    user_input1 = input(f"Գրեք {length} նիշանոց թիվ մնացելա {max_attempts} փորձ։ ")
     if len(user_input1) != length:
         print("Ձեր գրած թիվը չի համապատասխանում գրած նիշանոց թվին")
         continue
-    attempts += 1
+    if not user_input1.isdigit():
+        print("Միայն թիվ պետք է լինի")
+        continue
+
+    max_attempts -= 1
+
     if feedback(random_number, user_input1):
         print("Շնորհավորում եմ դուք հախտեցիք")
         break
